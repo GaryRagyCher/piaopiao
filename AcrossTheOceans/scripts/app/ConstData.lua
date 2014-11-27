@@ -36,3 +36,12 @@ SCENE_BG = {
 	scene3 = "sceneBG_3.png",
 	scene4 = "sceneBG_4.png"
 }
+
+--资源加载界面
+LOADING_BG = "loadingBG.png"
+
+--开始界面
+START_BG = "startBG.png"
+
+--泡泡
+BUBBLE = "bubble.png"
