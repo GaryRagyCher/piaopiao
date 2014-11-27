@@ -7,8 +7,8 @@ local StartScene = class("StartScene", function ()
 end)
 require("app.ConstData")
 local size = CCDirector:sharedDirector():getWinSize()--设计分辨率
-local bubble_point1X = 100--泡泡出生点中心点1的x
-local bubble_point2 = display.cx-100----泡泡出生中心点2的x
+local bubble_point1 = ccp(100,0)--泡泡出生点中心点1的x
+local bubble_point2 = ccp(display.cx-100,-100)----泡泡出生中心点2的x
 
 
 --背景动画
@@ -60,51 +60,32 @@ function StartScene:ctor()
 	self:bgAction()
 
 
-<<<<<<< Updated upstream
 	--泡泡 
 	local sharedScheduler =  CCDirector:sharedDirector():getScheduler()
 	self._sharedScheduler = sharedScheduler:scheduleScriptFunc(function()
 
-	 local count = math.random(5,10)--5-10个泡泡
+	 local count = math.random(2,4)--5-10个泡泡
      for i = 0,count do
-     	local pointX = math.random(bubble_point1-20,bubble_point1+20)--泡泡出生点的x
-     	local size = math.random()--0-1之间的数字
+     	local pointX = math.random(bubble_point1.x-40,bubble_point1.x+40)--泡泡出生点的x
+     	local pointY = math.random(bubble_point2.y-40,bubble_point2.y+40)--泡泡出生点的y
+     	local size = math.random()+0.5--0-1之间的数字
      	local bubbleSp = display.newSprite(ConstData.BUBBLE)
      	bubbleSp:setScale(size)
-     	bubbleSp:setPosition(ccp(pointX,0))
+     	bubbleSp:setPosition(ccp(pointX,pointY))
      	self:addChild(bubbleSp,1)
-     	local MoveToTop = CCMoveBy:create(5.0, ccp(0,display.height))
-     	local leftOrRightMove = CCMoveBy:create(0.2, ccp(20,0))
+
+     	local MoveToTop = CCEaseExponentialIn:create(CCMoveTo:create(8.0, ccp(pointX,display.height)))
+     	local leftOrRightMove = CCMoveBy:create(0.3, ccp(10,0))
      	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
      	local repeatForever = CCRepeatForever:create(LeftRightMove)
-     	bubbleSp:runAction(MoveToTop)
+     	local seq = CCSequence:createWithTwoActions(MoveToTop, CCCallFuncN:create(function(node)
+     		node:removeFromParent()
+     		node:removeAllActions()
+     	end))
+     	bubbleSp:runAction(seq)
      	bubbleSp:runAction(repeatForever)
      end
-     end, 1.0, false)
-=======
-	--动画层
-	self._fishAnimationLayer =  display.newLayer()
-	self._fishAnimationLayer:setTag(TAG_FISHANIMATIONLAYER)
-	self._fishAnimationLayer:setPosition(ccp(display.cx,display.cy))
-	self:addChild(self._fishAnimationLayer)
-	--泡泡
-	self:bubbleCreator()
-	local bubbleSp = display.newSprite(BUBBLE)
-	bubbleSp:setPosition(ccp(200,200))
-	self._fishAnimationLayer:addChild(bubbleSp)
->>>>>>> Stashed changes
-
-    --菜单层,用于放置菜单
-    --[[local menuLayer = display.newLayer()
-    menuLayer:setPosition(ccp(display.cx,display.cy))
-<<<<<<< Updated upstream
-    self:addChild(menuLayer)]]
-    
-    
-=======
-    self:addChild(menuLayer)
-      
->>>>>>> Stashed changes
+     end, 3.0, false)
 end
 
 function StartScene:onEnter()
