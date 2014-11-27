@@ -28,3 +28,11 @@ FISH_EXP = {
 	scene4 = {fish_exp_small = 5, fish_exp_middle = 40, fish_exp_large = 100},
 }
 
+
+--背景图片
+SCENE_BG = {
+	scene1 = "sceneBG_1.png",
+	scene2 = "sceneBG_2.png",
+	scene3 = "sceneBG_3.png",
+	scene4 = "sceneBG_4.png"
+}
