@@ -28,27 +28,6 @@ function StartScene:bgAction()
 	self._bgSp:runAction(repeatForever)
 end
 
---随机泡泡
---[[
-function StartScene:bubbleCreator()
-	 local count = math.random(5,10)--5-10个泡泡
-     for i = 0,count do
-     	local point = math.random(bubble_point1-20,bubble_point1+20)--泡泡出生点的x
-     	local size = math.random()--0-1之间的数字
-     	local bubbleSp = display.newSprite(ConstData.BUBBLE)
-     	bubbleSp:setScale(size)
-     	bubbleSp:setPosition(ccp(point,100))
-     	self._fishAnimationLayer:addChild(bubbleSp)
-     	local MoveToTop = CCMoveBy:create(5.0, ccp(0,display.cy))
-     	local leftOrRightMove = CCMoveBy:create(0.2, ccp(20,0))
-     	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
-     	local repeatForever = CCRepeatForever:create(LeftRightMove)
-     	bubbleSp:runAction(MoveToTop)
-     	bubbleSp:runAction(repeatForever)
-     end
-end
-]]
-
 function StartScene:ctor()
 	--背景层,放置背景图片
 	local bgLayer = display.newLayer()
@@ -59,6 +38,8 @@ function StartScene:ctor()
 	self:addChild(bgLayer,0)
 	self:bgAction()
 
+     --背景音乐
+     --audio.playSound(SEA_SOUNDS, true)
 
 	--泡泡 
 	local sharedScheduler =  CCDirector:sharedDirector():getScheduler()
@@ -68,19 +49,20 @@ function StartScene:ctor()
      for i = 0,count do
      	local pointX = math.random(bubble_point1.x-40,bubble_point1.x+40)--泡泡出生点的x
      	local pointY = math.random(bubble_point2.y-40,bubble_point2.y+40)--泡泡出生点的y
-     	local size = math.random()+0.5--0-1之间的数字
+     	local size = math.random()--0-1之间的数字
      	local bubbleSp = display.newSprite(ConstData.BUBBLE)
      	bubbleSp:setScale(size)
      	bubbleSp:setPosition(ccp(pointX,pointY))
      	self:addChild(bubbleSp,1)
 
-     	local MoveToTop = CCEaseExponentialIn:create(CCMoveTo:create(8.0, ccp(pointX,display.height)))
+     	local MoveToTop = CCEaseExponentialIn:create(CCMoveTo:create(10.0, ccp(pointX,display.height)))
      	local leftOrRightMove = CCMoveBy:create(0.3, ccp(10,0))
      	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
      	local repeatForever = CCRepeatForever:create(LeftRightMove)
      	local seq = CCSequence:createWithTwoActions(MoveToTop, CCCallFuncN:create(function(node)
+               --node:removeAllActions()
      		node:removeFromParent()
-     		node:removeAllActions()
+     		
      	end))
      	bubbleSp:runAction(seq)
      	bubbleSp:runAction(repeatForever)
@@ -93,7 +75,7 @@ function StartScene:onEnter()
 end
 
 function StartScene:onExit()
-	-- body
+	CCDirector:sharedDirector():getScheduler():unscheduleScriptEntry(self._sharedScheduler)
 end
 
 return StartScene

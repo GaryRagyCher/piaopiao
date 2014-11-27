@@ -51,6 +51,7 @@ function LoadingScene:onEnter()
 end
 
 function LoadingScene:onExit()
+	CCDirector:sharedDirector():getScheduler():unscheduleScriptEntry(self._schedulerPro)
 end
 
 return LoadingScene
