@@ -45,7 +45,3 @@ START_BG = "startBG.png"
 --泡泡
 BUBBLE = "bubble.png"
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
