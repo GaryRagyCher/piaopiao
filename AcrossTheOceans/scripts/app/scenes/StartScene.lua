@@ -7,8 +7,7 @@ local StartScene = class("StartScene", function ()
 end)
 require("app.ConstData")
 local size = CCDirector:sharedDirector():getWinSize()--设计分辨率
-local TAG_FISHANIMATIONLAYER = 10
-local bubble_point1 = 100--泡泡出生点中心点1的x
+local bubble_point1X = 100--泡泡出生点中心点1的x
 local bubble_point2 = display.cx-100----泡泡出生中心点2的x
 
 
@@ -30,17 +29,17 @@ function StartScene:bgAction()
 end
 
 --随机泡泡
+--[[
 function StartScene:bubbleCreator()
-     local point = math.random(bubble_point1-20,bubble_point1+20)--泡泡出生点的x
-     local count = math.random(5,10)--5-10个泡泡
-     local size = math.random()--0-1之间的数字
-     print(point .. "**" .. count .. "**" .. size)
+	 local count = math.random(5,10)--5-10个泡泡
      for i = 0,count do
-     	local bubbleSp = display.newSprite(BUBBLE)
+     	local point = math.random(bubble_point1-20,bubble_point1+20)--泡泡出生点的x
+     	local size = math.random()--0-1之间的数字
+     	local bubbleSp = display.newSprite(ConstData.BUBBLE)
      	bubbleSp:setScale(size)
      	bubbleSp:setPosition(ccp(point,100))
      	self._fishAnimationLayer:addChild(bubbleSp)
-     	local MoveToTop = CCMoveBy:create(1.0, ccp(0,display.cy))
+     	local MoveToTop = CCMoveBy:create(5.0, ccp(0,display.cy))
      	local leftOrRightMove = CCMoveBy:create(0.2, ccp(20,0))
      	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
      	local repeatForever = CCRepeatForever:create(LeftRightMove)
@@ -48,6 +47,7 @@ function StartScene:bubbleCreator()
      	bubbleSp:runAction(repeatForever)
      end
 end
+]]
 
 function StartScene:ctor()
 	--背景层,放置背景图片
@@ -56,30 +56,39 @@ function StartScene:ctor()
 	self._bgSp = display.newSprite(ConstData.START_BG)
 	self._bgSp:setPosition(ccp(display.cx,display.cy))
 	bgLayer:addChild(self._bgSp)
-	self:addChild(bgLayer)
+	self:addChild(bgLayer,0)
 	self:bgAction()
 
 
+	--泡泡 
+	local sharedScheduler =  CCDirector:sharedDirector():getScheduler()
+	self._sharedScheduler = sharedScheduler:scheduleScriptFunc(function()
 
-	--动画层
-	self._fishAnimationLayer =  display.newLayer()
-	self._fishAnimationLayer:setTag(TAG_FISHANIMATIONLAYER)
-	self._fishAnimationLayer:setPosition(ccp(display.cx,display.cy))
-	self:addChild(self._fishAnimationLayer)
-	--泡泡
-	self:bubbleCreator()
-	local bubbleSp = display.newSprite(BUBBLE)
-	bubbleSp:setPosition(ccp(200,200))
-	self._fishAnimationLayer:addChild(bubbleSp)
+	 local count = math.random(5,10)--5-10个泡泡
+     for i = 0,count do
+     	local pointX = math.random(bubble_point1-20,bubble_point1+20)--泡泡出生点的x
+     	local size = math.random()--0-1之间的数字
+     	local bubbleSp = display.newSprite(ConstData.BUBBLE)
+     	bubbleSp:setScale(size)
+     	bubbleSp:setPosition(ccp(pointX,0))
+     	self:addChild(bubbleSp,1)
+     	local MoveToTop = CCMoveBy:create(5.0, ccp(0,display.height))
+     	local leftOrRightMove = CCMoveBy:create(0.2, ccp(20,0))
+     	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
+     	local repeatForever = CCRepeatForever:create(LeftRightMove)
+     	bubbleSp:runAction(MoveToTop)
+     	bubbleSp:runAction(repeatForever)
+     end
+     end, 1.0, false)
 
 
 	
 
    
     --菜单层,用于放置菜单
-    local menuLayer = display.newLayer()
+    --[[local menuLayer = display.newLayer()
     menuLayer:setPosition(ccp(display.cx,display.cy))
-    self:addChild(menuLayer)
+    self:addChild(menuLayer)]]
     
     
 end

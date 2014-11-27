@@ -44,8 +44,5 @@ LOADING_BG = "loadingBG.png"
 START_BG = "startBG.png"
 
 --泡泡
-<<<<<<< Updated upstream
 BUBBLE = "bubble.png"
-=======
-BUBBLE = "bubble.png"
->>>>>>> Stashed changes
+
