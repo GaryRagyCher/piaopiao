@@ -28,7 +28,6 @@ FISH_EXP = {
 	scene4 = {fish_exp_small = 5, fish_exp_middle = 40, fish_exp_large = 100},
 }
 
-
 --背景图片
 SCENE_BG = {
 	scene1 = "sceneBG_1.png",
@@ -46,3 +45,7 @@ START_BG = "startBG.png"
 --泡泡
 BUBBLE = "bubble.png"
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

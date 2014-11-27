@@ -60,6 +60,7 @@ function StartScene:ctor()
 	self:bgAction()
 
 
+<<<<<<< Updated upstream
 	--泡泡 
 	local sharedScheduler =  CCDirector:sharedDirector():getScheduler()
 	self._sharedScheduler = sharedScheduler:scheduleScriptFunc(function()
@@ -80,20 +81,31 @@ function StartScene:ctor()
      	bubbleSp:runAction(repeatForever)
      end
      end, 1.0, false)
+=======
+	--动画层
+	self._fishAnimationLayer =  display.newLayer()
+	self._fishAnimationLayer:setTag(TAG_FISHANIMATIONLAYER)
+	self._fishAnimationLayer:setPosition(ccp(display.cx,display.cy))
+	self:addChild(self._fishAnimationLayer)
+	--泡泡
+	self:bubbleCreator()
+	local bubbleSp = display.newSprite(BUBBLE)
+	bubbleSp:setPosition(ccp(200,200))
+	self._fishAnimationLayer:addChild(bubbleSp)
+>>>>>>> Stashed changes
 
-
-	
-
-   
     --菜单层,用于放置菜单
     --[[local menuLayer = display.newLayer()
     menuLayer:setPosition(ccp(display.cx,display.cy))
+<<<<<<< Updated upstream
     self:addChild(menuLayer)]]
     
     
+=======
+    self:addChild(menuLayer)
+      
+>>>>>>> Stashed changes
 end
-
-
 
 function StartScene:onEnter()
 	-- body
