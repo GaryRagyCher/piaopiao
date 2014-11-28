@@ -6,9 +6,11 @@
 local LoadingScene = class("LoadingScene", function()
 	return display.newScene("LoadingScene")
 end)
-require ("app.ConstData")
-StartScene = require("app.scenes.StartScene")
+
 function LoadingScene:ctor()
+
+	--加载资源
+	CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile(ConstData.FISH_PLIST)
 	--添加背景
 	local bg = display.newSprite(ConstData.LOADING_BG)
 	bg:setPosition(ccp(display.cx, display.cy))

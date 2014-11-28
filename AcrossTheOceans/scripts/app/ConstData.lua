@@ -45,6 +45,11 @@ START_BG = "startBG.png"
 --泡泡
 BUBBLE = "bubble.png"
 
+--鱼
+FISH_PLIST = "fish.plist"
+FISH_PNG = "fish.png"
+
+
 --声音文件
 BUBBLING_SOUNDS = "sounds/bubbling_sounds.wav" --冒气泡的声音
 DROPING_SOUNDS = "sounds/droping_sounds.wav"  --鱼落水的声音

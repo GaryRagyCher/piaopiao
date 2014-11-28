@@ -6,4 +6,10 @@ function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
 end
 
+
+require("config")
+require("framework.init")
+require("app.LuaFileManage")
 require("app.MyApp").new():run()
+
+
