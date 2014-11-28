@@ -140,15 +140,12 @@ function StartScene:ctor()
  	local settingBtn = cc.ui.UIPushButton.new({normal = ConstData.GAME_SETTING},{scale9 = true})
  	settingBtn:setPosition(ccp(50,50))
  	settingBtn:onButtonClicked(function (event)
- 		settingBtn:runAction(CCRotateBy:create(0.3, -90))
+ 	settingBtn:runAction(CCSequence:createWithTwoActions(CCScaleTo:create(0.3, 1.3), CCScaleTo:create(0.3, 1)))
  		print("设置")
  	end)
+
  	self:addChild(settingBtn)
- 		
-
-
-
-     
+ 		   
 end
 
 function StartScene:onEnter()
