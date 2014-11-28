@@ -41,6 +41,10 @@ LOADING_BG = "loadingBG.png"
 
 --开始界面
 START_BG = "startBG.png"
+ENTER_GAME = "enterGame.png"
+GAME_HELP = "gameHelp.png"
+MORE_MODE = "moreMode.png"
+GAME_SETTING = "gameSetting.png"
 
 --泡泡
 BUBBLE = "bubble.png"

@@ -58,6 +58,11 @@ end
 
 
 function StartScene:ctor()
+
+
+    --背景音乐
+    audio.playSound(ConstData.SEA_SOUNDS, true)
+
 	--背景层,放置背景图片
 	local bgLayer = display.newLayer()
 	bgLayer:setScale(1.4)
@@ -67,10 +72,8 @@ function StartScene:ctor()
 	self:addChild(bgLayer,0)
 	self:bgAction()
 
-     --背景音乐
-     audio.playSound(ConstData.SEA_SOUNDS, true)
 
-     self:createFish()
+    self:createFish()
 
 	--泡泡 
 	local sharedScheduler =  CCDirector:sharedDirector():getScheduler()
@@ -90,7 +93,6 @@ function StartScene:ctor()
      	local LeftRightMove = CCSequence:createWithTwoActions(leftOrRightMove, leftOrRightMove:reverse())
      	local repeatForever = CCRepeatForever:create(LeftRightMove)
      	local seq = CCSequence:createWithTwoActions(MoveToTop, CCCallFuncN:create(function(node)
-               --node:removeAllActions()
      		node:removeFromParent()
      		
      	end))
@@ -98,6 +100,52 @@ function StartScene:ctor()
      	bubbleSp:runAction(repeatForever)
      end
      end, 3.0, false)
+
+
+    --菜单回调函数
+	local function onButtonClicked(tag)
+		if tag == 1 then 
+			print("开始游戏")
+		elseif tag == 2 then
+			print("游戏帮助")
+		elseif tag == 3 then
+			print("更多模式")
+		end
+	end
+ 	--菜单
+ 	local item1 = ui.newImageMenuItem({--开始游戏
+ 		image = ConstData.ENTER_GAME,
+ 		listener = onButtonClicked,
+ 		tag = 1
+ 		})
+ 	item1:setScale(0.9)
+ 	local item2 = ui.newImageMenuItem({--游戏帮助
+ 		image = ConstData.GAME_HELP,
+ 		listener = onButtonClicked,
+ 		tag = 2
+ 		})
+ 	item2:setScale(0.9)
+	local item3 = ui.newImageMenuItem({--更多模式
+		image = ConstData.MORE_MODE,
+		listener = onButtonClicked,
+		tag = 3
+		})
+	item3:setScale(0.9)
+ 	local menu = ui.newMenu({item1,item2,item3})
+ 	menu:alignItemsVerticallyWithPadding(25)
+ 	menu:setPosition(ccp(display.cx,display.cy))
+ 	self:addChild(menu)
+
+ 	--设置
+ 	local settingBtn = cc.ui.UIPushButton.new({normal = ConstData.GAME_SETTING},{scale9 = true})
+ 	settingBtn:setPosition(ccp(50,50))
+ 	settingBtn:onButtonClicked(function (event)
+ 		settingBtn:runAction(CCRotateBy:create(0.3, -90))
+ 		print("设置")
+ 	end)
+ 	self:addChild(settingBtn)
+ 		
+
 
 
      
